@@ -2,10 +2,31 @@ Floater bob = new SpaceShip();
 public void setup() 
 {
   size(500, 500);
+  background(0);
 }
 public void draw() 
 {
+  background(0);
   bob.show();
+}
+public void keyPressed()
+{
+  if (key == 'w')
+  {
+    bob.accelerate(100); //accelerate
+  }
+  else if (key == 's')
+  {
+    bob.accelerate(-100); //decelerate
+  }
+  else if (key == 'd')
+  {
+    bob.rotate(10); //rotate clockwise
+  }
+  else if (key == 'a')
+  {
+    bob.rotate(-10); //rotate counterclockwise
+  }
 }
 class SpaceShip extends Floater  
 {   
@@ -18,7 +39,7 @@ class SpaceShip extends Floater
   public void setDirectionY(double y) {myDirectionY = y;}
   public double getDirectionY() {return myDirectionY;}
   public void setPointDirection(int degrees) {myPointDirection = degrees;}
-  public double getPointDirection() {return myPointDirection;}
+  public double  getPointDirection() {return myPointDirection;}
 
   SpaceShip()
   {
@@ -33,6 +54,12 @@ class SpaceShip extends Floater
     yCorners[2] = 8;
     xCorners[3] = -2;
     yCorners[3] = 0;
+    myColor = color(192, 69, 69);
+    myCenterX = 250;
+    myCenterY = 250;
+    myDirectionX = 0;
+    myDirectionY = 0;
+    myPointDirection = 0;
   }
 }
 abstract class Floater //Do NOT modify the Floater class! Make changes in the SpaceShip class 
