@@ -1,31 +1,62 @@
-Floater bob = new SpaceShip();
+Floater ship = new SpaceShip();
+Star stars[] = new Star[200];
+boolean accelerate = false;
+boolean decelerate = false;
 public void setup() 
 {
-  size(500, 500);
   background(0);
+  size(500, 500);
+  for(int i = 0; i < stars.length; i++)
+  {
+    stars[i] = new Star();
+  }
 }
 public void draw() 
 {
   background(0);
-  bob.show();
+  for(int i = 0; i < stars.length; i++)
+  {
+    stars[i].show();
+  }
+  ship.show();
+  ship.move();
+  if (accelerate == true)
+  {
+    ship.accelerate(0.50);
+  }
+
 }
 public void keyPressed()
 {
+  if (key == 'w') //accelerate
+  {
+    accelerate = true;
+  }
+  else if (key == 's') //decelerate
+  {
+    ship.accelerate(-0.50);
+  }
+  else if (key == 'd') //rotate clockwise
+  {
+    ship.rotate(10);
+  }
+  else if (key == 'a') //rotate counterclockwise
+  {
+    ship.rotate(-10);
+  }
+  else if (key == ' ') //hyperspace
+  {
+    ship.setX((int)(Math.random()*500));
+    ship.setY((int)(Math.random()*500));
+    ship.setDirectionX(0);
+    ship.setDirectionY(0);
+  }
+}
+public void keyReleased()
+{
   if (key == 'w')
   {
-    bob.accelerate(100); //accelerate
-  }
-  else if (key == 's')
-  {
-    bob.accelerate(-100); //decelerate
-  }
-  else if (key == 'd')
-  {
-    bob.rotate(10); //rotate clockwise
-  }
-  else if (key == 'a')
-  {
-    bob.rotate(-10); //rotate counterclockwise
+    accelerate = false;
   }
 }
 class SpaceShip extends Floater  
@@ -60,6 +91,24 @@ class SpaceShip extends Floater
     myDirectionX = 0;
     myDirectionY = 0;
     myPointDirection = 0;
+  }
+}
+class Star
+{
+  private int myStarColor;
+  private double myStarX, myStarY, myStarSize;
+  Star()
+  {
+    myStarColor = color(255, 255, 255);
+    myStarX = Math.random()*500;
+    myStarY = Math.random()*500;
+    myStarSize = Math.random()*5;
+  }
+  public void show()
+  {
+    fill(myStarColor);
+    stroke(myStarColor);
+    ellipse((int)myStarX, (int)myStarY, (int)myStarSize, (int)myStarSize);
   }
 }
 abstract class Floater //Do NOT modify the Floater class! Make changes in the SpaceShip class 
