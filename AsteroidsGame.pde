@@ -2,6 +2,9 @@ Floater ship = new SpaceShip();
 Star stars[] = new Star[200];
 boolean accelerate = false;
 boolean decelerate = false;
+boolean rotateClockwise = false;
+boolean rotateCounterClockwise = false;
+boolean hyperspace = false;
 public void setup() 
 {
   background(0);
@@ -24,7 +27,25 @@ public void draw()
   {
     ship.accelerate(0.50);
   }
-
+  else if (decelerate == true)
+  {
+    ship.accelerate(-0.50);
+  }
+  else if (rotateClockwise == true)
+  {
+    ship.rotate(10);
+  }
+  else if (rotateCounterClockwise == true)
+  {
+    ship.rotate(-10);
+  }
+  else if(hyperspace == true)
+  {
+    ship.setX((int)(Math.random()*500));
+    ship.setY((int)(Math.random()*500));
+    ship.setDirectionX(0);
+    ship.setDirectionY(0);
+  }
 }
 public void keyPressed()
 {
@@ -34,22 +55,19 @@ public void keyPressed()
   }
   else if (key == 's') //decelerate
   {
-    ship.accelerate(-0.50);
+    decelerate = true;
   }
   else if (key == 'd') //rotate clockwise
   {
-    ship.rotate(10);
+    rotateClockwise = true;
   }
   else if (key == 'a') //rotate counterclockwise
   {
-    ship.rotate(-10);
+    rotateCounterClockwise = true;
   }
   else if (key == ' ') //hyperspace
   {
-    ship.setX((int)(Math.random()*500));
-    ship.setY((int)(Math.random()*500));
-    ship.setDirectionX(0);
-    ship.setDirectionY(0);
+    hyperspace = true;
   }
 }
 public void keyReleased()
@@ -57,6 +75,22 @@ public void keyReleased()
   if (key == 'w')
   {
     accelerate = false;
+  }
+  else if (key == 's')
+  {
+    decelerate = false;
+  }
+  else if (key == 'd')
+  {
+    rotateClockwise = false;
+  }
+  else if (key == 'a')
+  {
+    rotateCounterClockwise = false;
+  }
+  else if (key == ' ')
+  {
+    hyperspace = false;
   }
 }
 class SpaceShip extends Floater  
