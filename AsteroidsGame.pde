@@ -49,49 +49,19 @@ public void draw()
 }
 public void keyPressed()
 {
-  if (key == 'w') //accelerate
-  {
-    accelerate = true;
-  }
-  else if (key == 's') //decelerate
-  {
-    decelerate = true;
-  }
-  else if (key == 'd') //rotate clockwise
-  {
-    rotateClockwise = true;
-  }
-  else if (key == 'a') //rotate counterclockwise
-  {
-    rotateCounterClockwise = true;
-  }
-  else if (key == ' ') //hyperspace
-  {
-    hyperspace = true;
-  }
+  if (key == 'w') {accelerate = true;}
+  else if (key == 's') {decelerate = true;}
+  else if (key == 'd') {rotateClockwise = true;}
+  else if (key == 'a') {rotateCounterClockwise = true;}
+  else if (key == ' ') {hyperspace = true;}
 }
 public void keyReleased()
 {
-  if (key == 'w')
-  {
-    accelerate = false;
-  }
-  else if (key == 's')
-  {
-    decelerate = false;
-  }
-  else if (key == 'd')
-  {
-    rotateClockwise = false;
-  }
-  else if (key == 'a')
-  {
-    rotateCounterClockwise = false;
-  }
-  else if (key == ' ')
-  {
-    hyperspace = false;
-  }
+  if (key == 'w') {accelerate = false;}
+  else if (key == 's') {decelerate = false;}
+  else if (key == 'd') {rotateClockwise = false;}
+  else if (key == 'a') {rotateCounterClockwise = false;}
+  else if (key == ' ') {hyperspace = false;}
 }
 class SpaceShip extends Floater  
 {   
@@ -106,7 +76,7 @@ class SpaceShip extends Floater
   public void setPointDirection(int degrees) {myPointDirection = degrees;}
   public double  getPointDirection() {return myPointDirection;}
 
-  SpaceShip()
+  public SpaceShip()
   {
     corners = 4;
     xCorners = new int[corners];
@@ -126,12 +96,17 @@ class SpaceShip extends Floater
     myDirectionY = 0;
     myPointDirection = 0;
   }
+  public void hyperFade()
+  {
+    
+    ellipse(ship.getX()+5, ship.getY()+5, 35, 35);
+  }
 }
 class Star
 {
   private int myStarColor;
   private double myStarX, myStarY, myStarSize;
-  Star()
+  public Star()
   {
     myStarColor = color(255, 255, 255);
     myStarX = Math.random()*500;
