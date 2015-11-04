@@ -21,6 +21,7 @@ public void draw()
   {
     stars[i].show();
   }
+
   ship.show();
   ship.move();
   if (accelerate == true)
@@ -41,6 +42,9 @@ public void draw()
   }
   else if(hyperspace == true)
   {
+    fill(0, 0, 0);
+    noStroke();
+    ellipse(ship.getX(), ship.getY(), 35, 35);
     ship.setX((int)(Math.random()*500));
     ship.setY((int)(Math.random()*500));
     ship.setDirectionX(0);
@@ -96,11 +100,6 @@ class SpaceShip extends Floater
     myDirectionY = 0;
     myPointDirection = 0;
   }
-  public void hyperFade()
-  {
-    
-    ellipse(ship.getX()+5, ship.getY()+5, 35, 35);
-  }
 }
 class Star
 {
@@ -118,6 +117,21 @@ class Star
     fill(myStarColor);
     stroke(myStarColor);
     ellipse((int)myStarX, (int)myStarY, (int)myStarSize, (int)myStarSize);
+  }
+}
+class Rocket
+{
+  private int myRocketColor;
+  private double myRocketX, myRocketY, myRocketSize;
+  public Rocket()
+  {
+    //initialize vars here
+  }
+  public void show()
+  {
+    fill(myRocketColor);
+    stroke(myRocketColor);
+    //code
   }
 }
 abstract class Floater //Do NOT modify the Floater class! Make changes in the SpaceShip class 
