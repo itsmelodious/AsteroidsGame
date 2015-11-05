@@ -1,5 +1,6 @@
 Floater ship = new SpaceShip();
 Star stars[] = new Star[200];
+Rocket flame = new Rocket();
 boolean accelerate = false;
 boolean decelerate = false;
 boolean rotateClockwise = false;
@@ -24,6 +25,7 @@ public void draw()
 
   ship.show();
   ship.move();
+  flame.show();
   if (accelerate == true)
   {
     ship.accelerate(0.50);
@@ -35,6 +37,8 @@ public void draw()
   else if (rotateClockwise == true)
   {
     ship.rotate(10);
+    flame = new Rocket();
+    flame.show();
   }
   else if (rotateCounterClockwise == true)
   {
@@ -125,13 +129,13 @@ class Rocket
   private double myRocketX, myRocketY, myRocketSize;
   public Rocket()
   {
-    //initialize vars here
+    myRocketColor = color((int)(Math.random()*(227-156)+156), (int)(Math.random()*(88-42)+42), (int)(Math.random()*(50-34))+34); //226, 88, 34
   }
   public void show()
   {
     fill(myRocketColor);
     stroke(myRocketColor);
-    //code
+    ellipse(ship.getX()-10, ship.getY(), 10, 10);
   }
 }
 abstract class Floater //Do NOT modify the Floater class! Make changes in the SpaceShip class 
