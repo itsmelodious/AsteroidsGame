@@ -22,7 +22,6 @@ public void draw()
   {
     stars[i].show();
   }
-
   ship.show();
   ship.move();
   if (accelerate == true)
@@ -35,11 +34,11 @@ public void draw()
   }
   else if (rotateClockwise == true)
   {
-    ship.rotate(10);
+    ship.myRotate(10);
   }
   else if (rotateCounterClockwise == true)
   {
-    ship.rotate(-10);
+    ship.myRotate(-10);
   }
   else if(hyperspace == true)
   {
@@ -102,15 +101,28 @@ class SpaceShip extends Floater
     myPointDirection = 0;
   }
   public void show()
-  {
+  {  
     super.show(); //inheirited
     if (accelerate == true)
     {
+      int rX1, rY1, rX2, rY2, rX3, rY3;
+      double dRadians = myPointDirection*(Math.PI/180);
+      translate((int)myCenterX, (int)myCenterY);
+      rotate((float)dRadians);
+      rX1 = -15;
+      rY1 = 0;
+      rX2 = -10;
+      rY2 = -5;
+      rX3 = -10;
+      rY3 = 5;
       int myRocketColor = color((int)(Math.random()*(227-156)+156), (int)(Math.random()*(88-42)+42), (int)(Math.random()*(50-34))+34);
       fill(myRocketColor);
       stroke(myRocketColor);
-      triangle(ship.getX()-15, ship.getY(), ship.getX()-10, ship.getY()-5, ship.getX()-10, ship.getY()+5);
+      triangle(rX1, rY1, rX2, rY2, rX3, rY3);
+      rotate((float)(-dRadians));
+      translate((int)(-myCenterX), (int)(-myCenterY));
     }
+    
   }
 }
 class Star
@@ -160,7 +172,7 @@ abstract class Floater //Do NOT modify the Floater class! Make changes in the Sp
     myDirectionX += ((dAmount) * Math.cos(dRadians));    
     myDirectionY += ((dAmount) * Math.sin(dRadians));       
   }   
-  public void rotate (int nDegreesOfRotation)   
+  public void myRotate (int nDegreesOfRotation)   
   {     
     //rotates the floater by a given number of degrees    
     myPointDirection+=nDegreesOfRotation;   
