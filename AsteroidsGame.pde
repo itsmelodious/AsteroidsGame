@@ -115,7 +115,8 @@ class SpaceShip extends Floater
       rY2 = -5;
       rX3 = -10;
       rY3 = 5;
-      int myRocketColor = color((int)(Math.random()*(227-156)+156), (int)(Math.random()*(88-42)+42), (int)(Math.random()*(50-34))+34);
+      int myRocketColor = color(255, 171, 0);
+      //int myRocketColor = color((int)(Math.random()*(227-156)+156), (int)(Math.random()*(88-42)+42), (int)(Math.random()*(50-34))+34);
       fill(myRocketColor);
       stroke(myRocketColor);
       triangle(rX1, rY1, rX2, rY2, rX3, rY3);
