@@ -186,7 +186,7 @@ class Asteroid extends Floater
   public void move()
   {
     super.move();
-    //need to rotate asteroid at its own speed
+    // need to rotate asteroid at its own speed
   }
 }
 
