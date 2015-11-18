@@ -1,5 +1,7 @@
 Floater ship = new SpaceShip();
 Star stars[] = new Star[200];
+// Asteroid asteroids[] = new Asteroid[50];
+Asteroid ast = new Asteroid();
 boolean accelerate = false;
 boolean decelerate = false;
 boolean rotateClockwise = false;
@@ -15,16 +17,26 @@ public void setup()
   {
     stars[i] = new Star();
   }
+  // for(int j = 0; j < asteroids.length; j++)
+  // {
+  //   asteroids[j] = new Asteroid();
+  // }
 }
 public void draw() 
 {
   background(0);
+  ship.show();
+  ship.move();
   for(int i = 0; i < stars.length; i++)
   {
     stars[i].show();
   }
-  ship.show();
-  ship.move();
+  ast.show();
+  ast.move();
+  // for(int j = 0; j < asteroids.length; j++)
+  // {
+  //   asteroids[j].show();
+  // }
   if (accelerate == true)
   {
     ship.accelerate(0.50);
@@ -164,29 +176,35 @@ class Asteroid extends Floater
   
   public Asteroid()
   {
-    corners = 4;
+    corners = 6;
     xCorners = new int[corners];
     yCorners = new int[corners];
-    xCorners[0] = -(int)(Math.random()*16);
-    yCorners[0] = -(int)(Math.random()*16);
-    xCorners[1] = (int)(Math.random()*24);
-    yCorners[1] = (int)(Math.random()*8);
-    xCorners[2] = -(int)(Math.random()*16);
-    yCorners[2] = (int)(Math.random()*16);
-    xCorners[3] = -(int)(Math.random()*10);
-    yCorners[3] = (int)(Math.random()*8);
+    xCorners[0] = -12;
+    yCorners[0] = -20;
+    xCorners[1] = 8;
+    yCorners[1] = -16;
+    xCorners[2] = 20;
+    yCorners[2] = 0;
+    xCorners[3] = 8;
+    yCorners[3] = 16;
+    xCorners[4] = -12;
+    yCorners[4] = 20;
+    xCorners[5] = -24;
+    yCorners[5] = 0;
     myColor = color(212, 171, 106);
     myCenterX = (int)(Math.random()*500);
     myCenterY = (int)(Math.random()*500);
-    myDirectionX = 0;
-    myDirectionY = 0;
+    myDirectionX = Math.random()*1; //0
+    myDirectionY = Math.random()*1; //0
     myPointDirection = 0;
     rotationSpeed = (int)(Math.random()*9)-4;
   }
   public void move()
   {
+    // myDirectionX = Math.random()*1;
+    // myDirectionY = Math.random()*1;
+    super.myRotate(rotationSpeed);
     super.move();
-    // need to rotate asteroid at its own speed
   }
 }
 
