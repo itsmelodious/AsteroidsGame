@@ -25,8 +25,6 @@ public void setup()
 public void draw() 
 {
   background(0);
-  ship.show();
-  ship.move();
   for(int i = 0; i < stars.length; i++)
   {
     stars[i].show();
@@ -37,6 +35,8 @@ public void draw()
   // {
   //   asteroids[j].show();
   // }
+  ship.show();
+  ship.move();
   if (accelerate == true)
   {
     ship.accelerate(0.50);
@@ -194,8 +194,8 @@ class Asteroid extends Floater
     myColor = color(212, 171, 106);
     myCenterX = (int)(Math.random()*500);
     myCenterY = (int)(Math.random()*500);
-    myDirectionX = Math.random()*1; //0
-    myDirectionY = Math.random()*1; //0
+    myDirectionX = (Math.random()*3)-1; //0
+    myDirectionY = (Math.random()*3)-1; //0
     myPointDirection = 0;
     rotationSpeed = (int)(Math.random()*9)-4;
   }
