@@ -1,6 +1,8 @@
 Floater ship = new SpaceShip();
 Star stars[] = new Star[200];
 Asteroid asteroids[] = new Asteroid[10];
+ArrayList <Asteroid> asteroidsList = new ArrayList <Asteroid>();
+int initialAsteroids = 10;
 boolean accelerate = false;
 boolean decelerate = false;
 boolean rotateClockwise = false;
@@ -19,6 +21,10 @@ public void setup()
   for(int j = 0; j < asteroids.length; j++)
   {
     asteroids[j] = new Asteroid();
+  }
+  for(int k = 0; k < initialAsteroids; k++)
+  {
+    asteroidsList.add(k, new Asteroid());
   }
 }
 public void draw() 
@@ -191,8 +197,8 @@ class Asteroid extends Floater
     myColor = color(212, 171, 106);
     myCenterX = (int)(Math.random()*500);
     myCenterY = (int)(Math.random()*500);
-    myDirectionX = (Math.random()*3)-1;
-    myDirectionY = (Math.random()*3)-1;
+    myDirectionX = (Math.random()*1)-1;
+    myDirectionY = (Math.random()*1)-1;
     myPointDirection = 0;
     rotationSpeed = (int)(Math.random()*9)-4;
   }
