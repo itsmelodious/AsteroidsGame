@@ -39,10 +39,12 @@ public void draw()
   //   asteroids[j].show();
   //   asteroids[j].move();
   // }
-  for(int k = 0; k < asteroidsList.size(); k++)
+  for(int k = asteroidsList.size() - 1; k >= 0; k--)
   {
     asteroidsList.get(k).show();
     asteroidsList.get(k).move();
+    if(dist(ship.getX(), ship.getY(), asteroidsList.get(k).getX(), asteroidsList.get(k).getY()) < 20)
+      asteroidsList.remove(k);
   }
   ship.show();
   ship.move();
