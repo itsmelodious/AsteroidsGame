@@ -47,10 +47,25 @@ public void draw()
       asteroidsList.remove(k);
   }
   ship.show();
-  ship.move();
   if (accelerate == true)
   {
     ship.accelerate(0.50);
+    int rX1, rY1, rX2, rY2, rX3, rY3;
+    float dRadians = (float)(ship.getPointDirection()*(Math.PI/180));
+    translate((float)ship.getX(), (float)ship.getY());
+    rotate(dRadians);
+    rX1 = -15;
+    rY1 = 0;
+    rX2 = -10;
+    rY2 = -5;
+    rX3 = -10;
+    rY3 = 5;
+    int myRocketColor = color(255, 171, 0);
+    fill(myRocketColor);
+    stroke(myRocketColor);
+    triangle(rX1, rY1, rX2, rY2, rX3, rY3);
+    rotate(-dRadians);
+    translate((float)(-ship.getX()), (float)(-ship.getY()));
   }
   else if (decelerate == true)
   {
@@ -74,6 +89,7 @@ public void draw()
     ship.setDirectionX(0);
     ship.setDirectionY(0);
   }
+  ship.move();
 }
 public void keyPressed()
 {
@@ -128,25 +144,26 @@ class SpaceShip extends Floater
   public void show()
   {  
     super.show(); //inheirited
-    if (accelerate == true)
-    {
-      int rX1, rY1, rX2, rY2, rX3, rY3;
-      double dRadians = myPointDirection*(Math.PI/180);
-      translate((int)myCenterX, (int)myCenterY);
-      rotate((float)dRadians);
-      rX1 = -15;
-      rY1 = 0;
-      rX2 = -10;
-      rY2 = -5;
-      rX3 = -10;
-      rY3 = 5;
-      int myRocketColor = color(255, 171, 0);
-      fill(myRocketColor);
-      stroke(myRocketColor);
-      triangle(rX1, rY1, rX2, rY2, rX3, rY3);
-      rotate((float)(-dRadians));
-      translate((int)(-myCenterX), (int)(-myCenterY));
-    }   
+    // this should still work because I call the show funtion in draw
+    // if (accelerate == true)
+    // {
+    //   int rX1, rY1, rX2, rY2, rX3, rY3;
+    //   double dRadians = myPointDirection*(Math.PI/180);
+    //   translate((float)myCenterX, (float)myCenterY);
+    //   rotate((float)dRadians);
+    //   rX1 = -15;
+    //   rY1 = 0;
+    //   rX2 = -10;
+    //   rY2 = -5;
+    //   rX3 = -10;
+    //   rY3 = 5;
+    //   int myRocketColor = color(255, 171, 0);
+    //   fill(myRocketColor);
+    //   stroke(myRocketColor);
+    //   triangle(rX1, rY1, rX2, rY2, rX3, rY3);
+    //   rotate((float)(-dRadians));
+    //   translate((float)(-myCenterX), (int)(-myCenterY));
+    // }   
   }
 }
 
