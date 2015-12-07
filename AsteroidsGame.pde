@@ -144,7 +144,7 @@ class SpaceShip extends Floater
   public void show()
   {  
     super.show(); //inheirited
-    // this should still work because I call the show funtion in draw
+    // this should still work because I call the show funtion in draw    // if (accelerate == true)
     // if (accelerate == true)
     // {
     //   int rX1, rY1, rX2, rY2, rX3, rY3;
@@ -235,6 +235,26 @@ class Asteroid extends Floater
     }
     super.myRotate(rotationSpeed);
     super.move();
+  }
+}
+
+class Bullet extends Floater
+{
+  public Bullet(Spaceship theShip)
+  {
+    myCenterX = ship.getX();
+    myCenterY = ship.getY();
+    myPointDirection = ship.getPointDirection();
+    double dRadians = myPointDirection*(Math.PI/180);
+    myDirectionX = 5*Math.cos(dRadians) + ship.getDirectionX();
+    myDrectionY = 5*Math.sin(dRadians) + ship.getDirectionY();
+    myColor = color(255, 255, 255);
+  }
+  public void show()
+  {
+    fill(myColor);
+    stroke(myColor);
+    //ellipse
   }
 }
 
