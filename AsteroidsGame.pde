@@ -1,13 +1,14 @@
 Floater ship = new SpaceShip();
 Star stars[] = new Star[200];
 int initialAst = 10;
-//Asteroid asteroids[] = new Asteroid[initialAst];
-ArrayList <Asteroid> asteroidsList = new ArrayList <Asteroid>();
+ArrayList <Asteroid> asteroids = new ArrayList <Asteroid>();
+ArrayList <Bullet> bullets = new ArrayList <Bullet>();
 boolean accelerate = false;
 boolean decelerate = false;
 boolean rotateClockwise = false;
 boolean rotateCounterClockwise = false;
 boolean hyperspace = false;
+boolean shoot = false;
 
 public void setup() 
 {
@@ -18,13 +19,9 @@ public void setup()
   {
     stars[i] = new Star();
   }
-  // for(int j = 0; j < asteroids.length; j++)
-  // {
-  //   asteroids[j] = new Asteroid();
-  // }
   for(int k = 0; k < initialAst; k++)
   {
-    asteroidsList.add(k, new Asteroid());
+    asteroids.add(k, new Asteroid());
   }
 }
 public void draw() 
@@ -34,19 +31,29 @@ public void draw()
   {   
     stars[i].show();
   }
-  // for(int j = 0; j < asteroids.length; j++)
-  // {
-  //   asteroids[j].show();
-  //   asteroids[j].move();
-  // }
-  for(int k = asteroidsList.size() - 1; k >= 0; k--)
+  for(int k = asteroids.size() - 1; k >= 0; k--)
   {
-    asteroidsList.get(k).show();
-    asteroidsList.get(k).move();
-    if(dist(ship.getX(), ship.getY(), asteroidsList.get(k).getX(), asteroidsList.get(k).getY()) < 20)
-      asteroidsList.remove(k);
+    asteroids.get(k).show();
+    asteroids.get(k).move();
+    if(dist(ship.getX(), ship.getY(), asteroids.get(k).getX(), asteroids.get(k).getY()) < 20)
+      asteroids.remove(k);
   }
   ship.show();
+  if(shoot == true)
+  {
+    bullets.add(new Bullet());
+    System.out.println(bullets.size());
+  }
+  for(int j = 0; j < bullets.size(); j++)
+  {
+    bullets.get(j).show();
+    bullets.get(j).move();
+    if(bullets.get(j).getX() > width || bullets.get(j).getX() < 0 ||
+      bullets.get(j).getY() > height || bullets.get(j).getY() < 0)
+    {     
+      bullets.remove(j);    
+    }
+  }
   if (accelerate == true)
   {
     ship.accelerate(0.50);
@@ -97,7 +104,8 @@ public void keyPressed()
   else if (key == 's') {decelerate = true;}
   else if (key == 'd') {rotateClockwise = true;}
   else if (key == 'a') {rotateCounterClockwise = true;}
-  else if (key == ' ') {hyperspace = true;}
+  else if (key == 'v') {hyperspace = true;}
+  else if (key == ' ') {shoot = true;}
 }
 public void keyReleased()
 {
@@ -105,7 +113,8 @@ public void keyReleased()
   else if (key == 's') {decelerate = false;}
   else if (key == 'd') {rotateClockwise = false;}
   else if (key == 'a') {rotateCounterClockwise = false;}
-  else if (key == ' ') {hyperspace = false;}
+  else if (key == 'v') {hyperspace = false;}
+  else if (key == ' ') {shoot = false;}
 }
 
 class SpaceShip extends Floater  
@@ -143,27 +152,7 @@ class SpaceShip extends Floater
   }
   public void show()
   {  
-    super.show(); //inheirited
-    // this should still work because I call the show funtion in draw    // if (accelerate == true)
-    // if (accelerate == true)
-    // {
-    //   int rX1, rY1, rX2, rY2, rX3, rY3;
-    //   double dRadians = myPointDirection*(Math.PI/180);
-    //   translate((float)myCenterX, (float)myCenterY);
-    //   rotate((float)dRadians);
-    //   rX1 = -15;
-    //   rY1 = 0;
-    //   rX2 = -10;
-    //   rY2 = -5;
-    //   rX3 = -10;
-    //   rY3 = 5;
-    //   int myRocketColor = color(255, 171, 0);
-    //   fill(myRocketColor);
-    //   stroke(myRocketColor);
-    //   triangle(rX1, rY1, rX2, rY2, rX3, rY3);
-    //   rotate((float)(-dRadians));
-    //   translate((float)(-myCenterX), (int)(-myCenterY));
-    // }   
+    super.show(); //inheirited  
   }
 }
 
@@ -240,21 +229,37 @@ class Asteroid extends Floater
 
 class Bullet extends Floater
 {
-  public Bullet(Spaceship theShip)
+  public void setX(int x) {myCenterX = x;}
+  public int getX() {return (int)myCenterX;}
+  public void setY(int y) {myCenterY = y;}
+  public int getY() {return (int)myCenterY;}
+  public void setDirectionX(double x) {myDirectionX = x;}
+  public double getDirectionX() {return myDirectionX;}
+  public void setDirectionY(double y) {myDirectionY = y;}
+  public double getDirectionY() {return myDirectionY;}
+  public void setPointDirection(int degrees) {myPointDirection = degrees;}
+  public double  getPointDirection() {return myPointDirection;}
+
+  public Bullet()
   {
     myCenterX = ship.getX();
     myCenterY = ship.getY();
     myPointDirection = ship.getPointDirection();
     double dRadians = myPointDirection*(Math.PI/180);
     myDirectionX = 5*Math.cos(dRadians) + ship.getDirectionX();
-    myDrectionY = 5*Math.sin(dRadians) + ship.getDirectionY();
-    myColor = color(255, 255, 255);
+    myDirectionY = 5*Math.sin(dRadians) + ship.getDirectionY();
+    myColor = color(255, 255, 153);
   }
   public void show()
   {
     fill(myColor);
     stroke(myColor);
-    //ellipse
+    ellipse((int)myCenterX, (int)myCenterY, 10, 10);
+  }
+  public void move()
+  {
+    myCenterX += myDirectionX;    
+    myCenterY += myDirectionY;
   }
 }
 
