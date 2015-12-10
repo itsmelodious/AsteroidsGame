@@ -8,7 +8,6 @@ boolean decelerate = false;
 boolean rotateClockwise = false;
 boolean rotateCounterClockwise = false;
 boolean hyperspace = false;
-boolean shoot = false;
 
 public void setup() 
 {
@@ -39,19 +38,20 @@ public void draw()
       asteroids.remove(k);
   }
   ship.show();
-  if(shoot == true)
+  if(bullets.size() > 0)
   {
-    bullets.add(new Bullet());
-    System.out.println(bullets.size());
-  }
-  for(int j = 0; j < bullets.size(); j++)
-  {
-    bullets.get(j).show();
-    bullets.get(j).move();
-    if(bullets.get(j).getX() > width || bullets.get(j).getX() < 0 ||
-      bullets.get(j).getY() > height || bullets.get(j).getY() < 0)
-    {     
-      bullets.remove(j);    
+    for(int j = bullets.size() - 1; j >= 0; j--)
+    {
+      bullets.get(j).show();
+      bullets.get(j).move();
+      for(int a = asteroids.size() - 1; a >= 0; a--)
+      {
+        if(dist(asteroids.get(a).getX(), asteroids.get(a).getY(), bullets.get(j).getX(), bullets.get(j).getY()) < 20)
+        {
+          asteroids.remove(a);
+          bullets.remove(j);
+        }
+      }
     }
   }
   if (accelerate == true)
@@ -105,7 +105,7 @@ public void keyPressed()
   else if (key == 'd') {rotateClockwise = true;}
   else if (key == 'a') {rotateCounterClockwise = true;}
   else if (key == 'v') {hyperspace = true;}
-  else if (key == ' ') {shoot = true;}
+  else if (key == ' ') {bullets.add(new Bullet());}
 }
 public void keyReleased()
 {
@@ -114,7 +114,6 @@ public void keyReleased()
   else if (key == 'd') {rotateClockwise = false;}
   else if (key == 'a') {rotateCounterClockwise = false;}
   else if (key == 'v') {hyperspace = false;}
-  else if (key == ' ') {shoot = false;}
 }
 
 class SpaceShip extends Floater  
