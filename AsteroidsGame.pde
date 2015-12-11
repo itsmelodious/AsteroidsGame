@@ -1,6 +1,6 @@
 Floater ship = new SpaceShip();
 Star stars[] = new Star[200];
-int initialAst = 10;
+int initialAst = 15;
 ArrayList <Asteroid> asteroids = new ArrayList <Asteroid>();
 ArrayList <Bullet> bullets = new ArrayList <Bullet>();
 boolean accelerate = false;
@@ -37,23 +37,24 @@ public void draw()
     if(dist(ship.getX(), ship.getY(), asteroids.get(k).getX(), asteroids.get(k).getY()) < 20)
       asteroids.remove(k);
   }
-  ship.show();
   if(bullets.size() > 0)
   {
-    for(int j = bullets.size() - 1; j >= 0; j--)
+    for(int j = bullets.size()-1; j >= 0; j--)
     {
       bullets.get(j).show();
       bullets.get(j).move();
-      for(int a = asteroids.size() - 1; a >= 0; a--)
+      for(int a = 0; a < asteroids.size(); a++)
       {
         if(dist(asteroids.get(a).getX(), asteroids.get(a).getY(), bullets.get(j).getX(), bullets.get(j).getY()) < 20)
         {
           asteroids.remove(a);
           bullets.remove(j);
+          break;
         }
       }
     }
   }
+  ship.show();
   if (accelerate == true)
   {
     ship.accelerate(0.50);
